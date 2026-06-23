@@ -13,3 +13,7 @@
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Claude Code 运行时产物（锁文件、临时工作区等，非笔记内容）
+.claude/
+_mineru/
