@@ -1,0 +1,15 @@
+# Obsidian 本地窗口布局/会话状态（每台设备不同，不应同步）
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+
+# Obsidian 缓存
+.obsidian/cache/
+.obsidian/plugins/*/data.json.bak
+
+# Obsidian 回收站
+.trash/
+
+# 系统文件
+.DS_Store
+Thumbs.db
+desktop.ini
