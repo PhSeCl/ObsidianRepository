@@ -14,6 +14,9 @@
 Thumbs.db
 desktop.ini
 
+# Windows 快捷方式（指向本地路径，不应同步）
+*.lnk
+
 # Claude Code 运行时产物（锁文件、临时工作区等，非笔记内容）
 .claude/
 _mineru/
