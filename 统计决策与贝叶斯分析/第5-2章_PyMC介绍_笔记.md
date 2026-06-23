@@ -14,7 +14,7 @@ date: 2026-06-13
 # 第5-2章 PyMC 介绍
 
 > [!abstract] 本章导览
-> 手写 [[MCMC]] 繁琐易错。**PyMC** 是一个**概率编程（probabilistic programming）** 库：你只需用「**图模型 / 流程图**」声明先验与似然，PyMC 便能**自动推导未归一化目标 $P(\theta)$** 并调用 MCMC（如 Metropolis）/ 变分推理求后验。本章以抛硬币为例打通「数学模型 → 流程图 → PyMC 代码」。
+> 手写 MCMC 繁琐易错。**PyMC** 是一个**概率编程（probabilistic programming）** 库：你只需用「**图模型 / 流程图**」声明先验与似然，PyMC 便能**自动推导未归一化目标 $P(\theta)$** 并调用 MCMC（如 Metropolis）/ 变分推理求后验。本章以抛硬币为例打通「数学模型 → 流程图 → PyMC 代码」。
 
 ---
 
@@ -106,7 +106,7 @@ $$\theta\sim \mathrm{Beta}(\theta\mid a_0, b_0)\quad(\text{先验}),\qquad y\sim
 
 > [!summary] 要点
 > - **概率编程**把贝叶斯建模拆成「声明模型」与「通用推断」两步；用户只描述先验+似然（图模型），推断交给库。
-> - PyMC 自动推导未归一化目标 $P(\theta)$，调用 [[MCMC]] / 变分推理。
+> - PyMC 自动推导未归一化目标 $P(\theta)$，调用 MCMC / 变分推理。
 > - **流程图 ↔ 代码**一一对应：先验节点 = `pm.Beta(...)`，似然节点 = `pm.Bernoulli(..., observed=...)`。
 
 > [!question] 自测

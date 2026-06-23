@@ -15,7 +15,7 @@ date: 2026-06-13
 # 第5章 贝叶斯推理方法：马尔科夫链蒙特卡洛（MCMC）近似
 
 > [!abstract] 本章导览
-> 网格近似在高维爆炸、共轭先验表达力受限——本章引入最通用的求后验方法：**[[MCMC]]（Markov Chain Monte Carlo）**。核心是**通过从后验采样大量 $\theta$ 来近似后验**，且**只需后验的比值**（无需算证据 $p(D)$）。从「岛屿游玩」直觉出发讲 **Metropolis 算法**，推广到 **Metropolis-Hastings**、**Random Walk Metropolis**，再到多维与 **吉布斯采样（Gibbs Sampling）**，并讨论**自相关 / 有效样本数量 / 预热期**等诊断。
+> 网格近似在高维爆炸、共轭先验表达力受限——本章引入最通用的求后验方法：**MCMC（Markov Chain Monte Carlo）**。核心是**通过从后验采样大量 $\theta$ 来近似后验**，且**只需后验的比值**（无需算证据 $p(D)$）。从「岛屿游玩」直觉出发讲 **Metropolis 算法**，推广到 **Metropolis-Hastings**、**Random Walk Metropolis**，再到多维与 **吉布斯采样（Gibbs Sampling）**，并讨论**自相关 / 有效样本数量 / 预热期**等诊断。
 
 ---
 
