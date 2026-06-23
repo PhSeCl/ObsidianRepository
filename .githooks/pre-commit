@@ -1,0 +1,30 @@
+#!/bin/sh
+# 仓库自动化钩子：提交前刷新 README 课程目录 + 链接体检（非阻塞）。
+# 启用方式（每个克隆一次性）：  git config core.hooksPath .githooks
+#
+# 设计：钩子永不因脚本失败而阻断提交（笔记库提交不应被工具卡住），
+#       README 变更会自动 git add 进本次提交；链接问题仅打印告警。
+
+# 找一个可用的 Python（Windows 上常见 py 启动器）
+PY="$(command -v python 2>/dev/null || command -v py 2>/dev/null || command -v python3 2>/dev/null)"
+if [ -z "$PY" ]; then
+  echo "[pre-commit] 未找到 Python，跳过 README 自动更新与链接检查" >&2
+  exit 0
+fi
+
+ROOT="$(git rev-parse --show-toplevel)"
+
+# 1) 刷新 README 课程目录（笔记数/MOC 链接），把变更纳入本次提交
+"$PY" "$ROOT/scripts/update_readme.py"
+git add "$ROOT/README.md" 2>/dev/null
+
+# 2) 链接体检：死链 / 失效锚点 / 破图（仅告警，不阻断）
+"$PY" "$ROOT/scripts/check_links.py" "$ROOT" >/tmp/_obsidian_linkcheck 2>&1
+if [ $? -ne 0 ]; then
+  echo "[pre-commit] ⚠ 链接体检发现问题（不阻断提交，建议修复）：" >&2
+  # 只回显三类问题的标题行与计数，避免刷屏
+  grep -E "===|问题合计" /tmp/_obsidian_linkcheck >&2
+fi
+rm -f /tmp/_obsidian_linkcheck
+
+exit 0
