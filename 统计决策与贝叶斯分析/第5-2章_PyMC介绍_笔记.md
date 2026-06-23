@@ -98,7 +98,7 @@ $$\theta\sim \mathrm{Beta}(\theta\mid a_0, b_0)\quad(\text{先验}),\qquad y\sim
 > - `with pm.Model() as model:` 上下文中声明的随机变量自动注册进模型；
 > - **`observed=` 标记似然节点**（绑定真实数据），无 `observed` 的是待推断参数；
 > - `pm.sample()` 负责预热（burn-in）、多链采样、收敛诊断；
-> - 配合 **ArviZ** 做后验分析（[[最高密度区间]] HDI、轨迹图、有效样本数量 ESS）。
+> - 配合 **ArviZ** 做后验分析（[[第2章_概率论回顾_笔记#最高密度区间（Highest Density Interval, HDI）|最高密度区间]] HDI、轨迹图、有效样本数量 ESS）。
 
 ---
 
