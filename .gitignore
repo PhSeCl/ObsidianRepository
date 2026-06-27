@@ -20,3 +20,6 @@ desktop.ini
 # Claude Code 运行时产物（锁文件、临时工作区等，非笔记内容）
 .claude/
 _mineru/
+
+# 自命模拟试题（本地自测用，不上传）
+模拟试题/
