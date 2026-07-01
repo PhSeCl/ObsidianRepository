@@ -23,6 +23,19 @@ from urllib.parse import unquote
 
 SKIP_DIRS = {'.obsidian', '_mineru', '.git', '.venv', '__pycache__', '.trash'}
 
+
+def print_safe(text):
+    try:
+        print(text)
+    except UnicodeEncodeError:
+        stream = sys.stdout
+        encoding = getattr(stream, 'encoding', None) or 'utf-8'
+        if hasattr(stream, 'buffer'):
+            stream.buffer.write((text + '\n').encode(encoding, errors='replace'))
+            stream.buffer.flush()
+        else:
+            stream.write((text + '\n').encode(encoding, errors='replace').decode(encoding))
+
 def main():
     root = sys.argv[1] if len(sys.argv) > 1 else '.'
     files = []
@@ -41,7 +54,7 @@ def main():
             m = re.match(r'^#{1,6}\s+(.*?)\s*$', line)
             if m:
                 hs.add(m.group(1))
-        headings[key] = hs
+        headings.setdefault(key, set()).update(hs)
 
     code_span = re.compile(r'`[^`]*`')                       # 去行内代码再找 wikilink
     link_re   = re.compile(r'!?\[\[([^\]]+?)\]\]')
@@ -71,15 +84,15 @@ def main():
                     broken.append(f"{f}:{i}\t{p}")
 
     def report(title, items):
-        print(f"\n=== {title}: {len(items)} ===")
+        print_safe(f"\n=== {title}: {len(items)} ===")
         for it in items:
-            print("  " + it)
+            print_safe("  " + it)
 
     report("死链 [[..]]（目标文件不存在）", dead)
     report("失效锚点 [[..#标题]]（标题不存在）", bad_anchor)
     report("破图（assets 图片缺失）", broken)
     total = len(dead) + len(bad_anchor) + len(broken)
-    print(f"\n扫描 {len(files)} 篇笔记，问题合计: {total}")
+    print_safe(f"\n扫描 {len(files)} 篇笔记，问题合计: {total}")
     sys.exit(1 if total else 0)
 
 if __name__ == '__main__':
